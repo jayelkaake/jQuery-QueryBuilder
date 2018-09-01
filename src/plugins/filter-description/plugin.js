@@ -4,11 +4,33 @@
  * @description Provides three ways to display a description about a filter: inline, Bootsrap Popover or Bootbox.
  * @param {object} [options]
  * @param {string} [options.icon='glyphicon glyphicon-info-sign']
- * @param {string} [options.mode='popover'] - inline, popover or bootbox
+ * @param {string} [options.mode='popover'] - inline, inline-tooltip, popover or bootbox
  * @throws ConfigError
  */
 QueryBuilder.define('filter-description', function(options) {
     // INLINE
+    if (options.mode === 'inline-tooltip') {
+        this.on('afterUpdateRuleFilter afterUpdateRuleOperator', function(e, rule) {
+            var $span = rule.$el.find('span.filter-description');
+            var description = e.builder.getFilterDescription(rule.filter, rule);
+
+            if (!description) {
+                $span.hide();
+            }
+            else {
+                if ($span.length === 0) {
+                    $span = $('<span class="filter-description filter-description-inline-tooltip"></span>');
+                    $span.appendTo(rule.$el);
+                }
+                else {
+                    $span.css('display', '');
+                }
+
+                $span.html('<i class="' + options.icon + '" data-toggle="tooltip" title="'+description+'"></i> ');
+                $span.children('i').tooltip();
+            }
+        });
+    } else
     if (options.mode === 'inline') {
         this.on('afterUpdateRuleFilter afterUpdateRuleOperator', function(e, rule) {
             var $p = rule.$el.find('p.filter-description');
