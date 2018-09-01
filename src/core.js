@@ -345,7 +345,7 @@ QueryBuilder.prototype.setRoot = function(addRule, data, flags) {
     addRule = (addRule === undefined || addRule === true);
 
     var group_id = this.nextGroupId();
-    var $group = $(this.getGroupTemplate(group_id, 1));
+    var $group = $(this.getGroupTemplate(group_id, 1, this.model));
 
     this.$el.append($group);
     this.model.root = new Group(null, $group);
@@ -393,7 +393,7 @@ QueryBuilder.prototype.addGroup = function(parent, addRule, data, flags) {
     }
 
     var group_id = this.nextGroupId();
-    var $group = $(this.getGroupTemplate(group_id, level));
+    var $group = $(this.getGroupTemplate(group_id, level, parent));
     var model = parent.addGroup($group);
 
     model.data = data;
@@ -535,7 +535,7 @@ QueryBuilder.prototype.addRule = function(parent, data, flags) {
     }
 
     var rule_id = this.nextRuleId();
-    var $rule = $(this.getRuleTemplate(rule_id));
+    var $rule = $(this.getRuleTemplate(rule_id, parent));
     var model = parent.addRule($rule);
 
     model.data = data;

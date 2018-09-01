@@ -109,11 +109,12 @@ QueryBuilder.templates.ruleValueSelect = '\
  * Returns group's HTML
  * @param {string} group_id
  * @param {int} level
+ * @param {Group} parent
  * @returns {string}
  * @fires QueryBuilder.changer:getGroupTemplate
  * @private
  */
-QueryBuilder.prototype.getGroupTemplate = function(group_id, level) {
+QueryBuilder.prototype.getGroupTemplate = function(group_id, level, parent) {
     var h = this.templates.group({
         builder: this,
         group_id: group_id,
@@ -121,7 +122,8 @@ QueryBuilder.prototype.getGroupTemplate = function(group_id, level) {
         conditions: this.settings.conditions,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
+        parent: parent
     });
 
     /**
@@ -138,17 +140,19 @@ QueryBuilder.prototype.getGroupTemplate = function(group_id, level) {
 /**
  * Returns rule's HTML
  * @param {string} rule_id
+ * @param {Group} parent
  * @returns {string}
  * @fires QueryBuilder.changer:getRuleTemplate
  * @private
  */
-QueryBuilder.prototype.getRuleTemplate = function(rule_id) {
+QueryBuilder.prototype.getRuleTemplate = function(rule_id, parent) {
     var h = this.templates.rule({
         builder: this,
         rule_id: rule_id,
         icons: this.icons,
         settings: this.settings,
-        translate: this.translate.bind(this)
+        translate: this.translate.bind(this),
+        parent: parent
     });
 
     /**
