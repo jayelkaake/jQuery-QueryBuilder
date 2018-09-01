@@ -19,3 +19,7 @@ $description-border: 1px solid $description-border-color;
   padding: #{$rule-padding / 2} $rule-padding;
   font-size: .8em;
 }
+
+.query-builder .filter-description-inline-tooltip {
+  margin-right: 12px;
+}
